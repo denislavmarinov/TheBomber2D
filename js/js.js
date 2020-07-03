@@ -1,21 +1,14 @@
 function game(arr) {
-	let num = 0, targets = [];
-		targets[num] = {targetsCount: 0};
+	let num = 0, targets = [], bombThrowPlaces = []; 
 	for (let i = 0; i < arr.length; i++) {
-		for (let j = 0; j < arr[i].length; j++) {
-			if (arr[i][j] == "W") {
+		bombThrowPlaces[num] = {}; 
+		for (let j = 0; j < arr.length; j++) {
+			if(arr[i][j] == "0"){
+				bombThrowPlaces[num] = {row: i, col: j}; 
 				num++;
-			targets[num] = {
-				// row: i,
-				targetsCount: 0
-			};
-			} else if (arr[i][j] == "E") {
-				targets[num].targetsCount += 1;
 			}
 		}
-
 	}
-	return targets;
 }
 
 
