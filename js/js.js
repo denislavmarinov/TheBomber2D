@@ -13,27 +13,36 @@ function game(arr){
 	num = 0;
 
 	for (ind in bombThrowPlaces) {
-		let x = bombThrowPlaces[ind].row;
+		let x = bombThrowPlaces[ind].row, y = bombThrowPlaces[ind].col;
 		
 		targets[num] = {targetsCount: 0};
-
-		for (let y = 0; y < arr.length; y++) {
+		// Search for rnrmy in a row => x is not changing
+		for (let k = 0; k < arr.length; k++) {
+			// Check if y is equal to the end of the row and make it 0 (zero)
+			if (y == arr.length) {
+				y = 0;
+			}
 			if (arr[x][y] == "W") {
 				break;
 			} else if (arr[x][y] == "E") {
 				targets[num].targetsCount += 1;
 			}
+			y++;
 		}
 
-		y = bombThrowPlaces[ind].col;
-		x = 0;
 		
-		for (x = 0; x < arr.length; x++) {
+		// Searching for enemy in a cols => y is not changing
+		for (l = 0; l < arr.length; l++) {
+			// Check if x is equal to the end of the col and make it 0 (zero)
+			if (x == arr.length) {
+				x = 0;
+			}
 			if (arr[x][y] == "W") {
 				break;
 			} else if (arr[x][y] == "E") {
 				targets[num].targetsCount += 1;
 			}
+			x++;
 		}
 		num++;
 	}
