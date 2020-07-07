@@ -189,13 +189,18 @@ function game(arr){
 // 	["E"]
 // ];
 
+// let input = [
+// 	["0"],
+// 	["W"],
+// 	["0"]
+// ]
+
 let input = [
 	["0"],
-	["W"],
-	["0"]
+	["E",  "W"]
 ]
 
-console.log(game(input));
+//console.log(game(input));
 
 
 function checkIfInputArrIsEmpty(arr){
@@ -206,7 +211,7 @@ function checkIfInputArrIsEmpty(arr){
 	}
 }
 
-console.log(checkIfInputArrIsEmpty(input));
+// console.log(checkIfInputArrIsEmpty(input));
 
 
 function checkIfInputSubArrIsEmpty (arr) {
@@ -217,10 +222,10 @@ function checkIfInputSubArrIsEmpty (arr) {
 	}
 }
 
-console.log(checkIfInputSubArrIsEmpty(input));
+// console.log(checkIfInputSubArrIsEmpty(input));
 
 
-function checkIfINputDoesNotContain0 (arr) {
+function checkIfInputDoesNotContain0 (arr) {
 	for (let ii = 0; ii < arr.length; ii++) {
 		if (arr[ii].includes("0")) {
 			return true;
@@ -229,9 +234,9 @@ function checkIfINputDoesNotContain0 (arr) {
 	return false;
 }
 
-console.log(checkIfINputDoesNotContain0(input));
+// console.log(checkIfInputDoesNotContain0(input));
 
-function checkIfINputDoesNotContainEnemies (arr) {
+function checkIfInputDoesNotContainEnemies (arr) {
 	for (let ij = 0; ij < arr.length; ij++) {
 		if (arr[ij].includes("E")) {
 			return true;
@@ -240,4 +245,21 @@ function checkIfINputDoesNotContainEnemies (arr) {
 	return false;
 }
 
-console.log(checkIfINputDoesNotContainEnemies(input));
+// console.log(checkIfInputDoesNotContainEnemies(input));
+
+
+function checkIfInputSubArrLengthIsNotEqual(arr){
+	let lengthsOfSubarr = [];
+	for (let ik = 0; ik < arr.length; ik++) {
+		lengthsOfSubarr.push(arr[ik].length);
+	}
+
+	for (let il = 0; il < lengthsOfSubarr.length-1; il++) {
+		if (lengthsOfSubarr[il] != lengthsOfSubarr[il+1]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+console.log(checkIfInputSubArrLengthIsNotEqual(input));
