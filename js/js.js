@@ -10,7 +10,6 @@ function game(arr){
 			}
 		}
 	}
-	console.log(bombThrowPlaces);
 	num = 0;
 	// Check every case in which the bomb can be planted somewhere
 	for (let ind in bombThrowPlaces) {
@@ -83,7 +82,7 @@ function game(arr){
 
 		num++;
 	}
-console.log(targets);
+
 	// Find the biggest number of died enemies
 	let mostTargetsDown = [], maxTargetsDown = 0, maxTargetsDownArr = [];
 	num = 0;
@@ -173,11 +172,24 @@ console.log(targets);
 // 	["E", "W", "0", "W"]
 // ];
 
-let input = [
-	["0", "E", "E", "0"],
-	["E", "w", "W", "E"],
-	["E", "W", "W", "E"],
-	["0", "E", "E", "0"]
-]
+// let input = [
+// 	["0", "E", "E", "0"],
+// 	["E", "w", "W", "E"],
+// 	["E", "W", "W", "E"],
+// 	["0", "E", "E", "0"]
+// ]
+
+let input = [];
 
 console.log(game(input));
+
+
+function checkIfInputArrIsEmpty(arr){
+	if (arr.length == 0) {
+		return false;
+	}else{
+		return true;
+	}
+}
+
+console.log(checkIfInputArrIsEmpty(input));
