@@ -181,7 +181,13 @@ function game(arr){
 
 // let input = [];
 
-let input = [[]];
+// let input = [[]];
+
+let input =[
+	["E"],
+	["E"],
+	["E"]
+];
 
 console.log(game(input));
 
@@ -206,3 +212,15 @@ function checkIfInputSubArrIsEmpty (arr) {
 }
 
 console.log(checkIfInputSubArrIsEmpty(input));
+
+
+function checkIfINputDoesNotContain0 (arr) {
+	for (let ii = 0; ii < arr.length; ii++) {
+		if (arr[ii].includes("0")) {
+			return true;
+		}
+	}
+	return false;
+}
+
+console.log(checkIfINputDoesNotContain0(input));
