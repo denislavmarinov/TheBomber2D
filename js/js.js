@@ -179,7 +179,9 @@ function game(arr){
 // 	["0", "E", "E", "0"]
 // ]
 
-let input = [];
+// let input = [];
+
+let input = [[]];
 
 console.log(game(input));
 
@@ -193,3 +195,14 @@ function checkIfInputArrIsEmpty(arr){
 }
 
 console.log(checkIfInputArrIsEmpty(input));
+
+
+function checkIfInputSubArrIsEmpty (arr) {
+	if (arr[0].length == 0) {
+		return false;
+	}else{
+		return true;
+	}
+}
+
+console.log(checkIfInputSubArrIsEmpty(input));
