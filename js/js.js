@@ -183,11 +183,17 @@ function game(arr){
 
 // let input = [[]];
 
-let input =[
-	["E"],
-	["E"],
-	["E"]
-];
+// let input =[
+// 	["E"],
+// 	["E"],
+// 	["E"]
+// ];
+
+let input = [
+	["0"],
+	["W"],
+	["0"]
+]
 
 console.log(game(input));
 
@@ -224,3 +230,14 @@ function checkIfINputDoesNotContain0 (arr) {
 }
 
 console.log(checkIfINputDoesNotContain0(input));
+
+function checkIfINputDoesNotContainEnemies (arr) {
+	for (let ij = 0; ij < arr.length; ij++) {
+		if (arr[ij].includes("E")) {
+			return true;
+		}
+	}
+	return false;
+}
+
+console.log(checkIfINputDoesNotContainEnemies(input));
