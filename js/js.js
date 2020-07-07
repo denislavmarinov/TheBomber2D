@@ -174,7 +174,7 @@ function game(arr){
 
 // let input = [
 // 	["0", "E", "E", "0"],
-// 	["E", "w", "W", "E"],
+// 	["E", "W", "W", "E"],
 // 	["E", "W", "W", "E"],
 // 	["0", "E", "E", "0"]
 // ]
@@ -195,9 +195,16 @@ function game(arr){
 // 	["0"]
 // ]
 
+// let input = [
+// 	["0"],
+// 	["E",  "W"]
+// ]
+
 let input = [
-	["0"],
-	["E",  "W"]
+	["P"],
+	["E"],
+	["W"],
+	["0"]
 ]
 
 //console.log(game(input));
@@ -262,4 +269,17 @@ function checkIfInputSubArrLengthIsNotEqual(arr){
 	return true;
 }
 
-console.log(checkIfInputSubArrLengthIsNotEqual(input));
+// console.log(checkIfInputSubArrLengthIsNotEqual(input));
+
+function checkIfTheInputIsCorrect(arr){
+	for (let im = 0; im < arr.length; im++) {
+		for (var ip = 0; ip < arr[im].length; ip++) {
+			if (arr[im][ip] != "E" && arr[im][ip] != "0" && arr[im][ip] != "W") {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+console.log(checkIfTheInputIsCorrect(input));
