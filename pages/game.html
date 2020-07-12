@@ -105,9 +105,9 @@
 			}
 		});
 		// Submit the selecting form
-		let btnSubmit = $("#submitSelecting");
+		let btnSubmit = $("#submitSelecting"), inputData = [];
 		$(btnSubmit).on("click", function(){
-			let inputData = [], num = 0;
+			let num = 0;
 			inputData[0] = [];
 			$("select").each(function(ind, el){
 				if ((ind)/col == 1) {
@@ -122,7 +122,33 @@
 				}
 
 			});
+			checkInputForErrors(inputData);
 		});
+		// Check the input for errors
+		function checkInputForErrors(inputData){
+			if (checkIfInputSubArrLengthIsNotEqual(inputData)) {
+				if (checkIfTheInputIsCorrect(inputData)) {
+					// Send the data to the result page	
+					
+				}else{
+					// If there are previous errors remove them	
+					if ($(".alert-danger").length != 0) {
+						$(".alert-danger").remove();
+					}
+					// Add error message
+					let error = "<p class='alert-danger'>Input includes characters different the the allowed!!!</p>";
+					$("#selectionDiv").before(error);
+				}
+			}else{
+				// If there are previous errors remove them
+				if ($(".alert-danger").length != 0) {
+						$(".alert-danger").remove();
+					}
+				// Add error message
+				let error = "<p class='alert-danger'>The number of columns in each rows is different!!!</p>";
+				$("#selectionDiv").before(error);
+			}
+		}
 	</script>
 </body>
 </html>
