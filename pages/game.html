@@ -101,9 +101,28 @@
 					let htmlToAdd = newColHtmlCode(col);
 					$(this).append(htmlToAdd);
 				});
+				col++;
 			}
 		});
+		// Submit the selecting form
+		let btnSubmit = $("#submitSelecting");
+		$(btnSubmit).on("click", function(){
+			let inputData = [], num = 0;
+			inputData[0] = [];
+			$("select").each(function(ind, el){
+				if ((ind)/col == 1) {
+					// New line
+					num++;
+					inputData[num] = [];
+					let str = $(this).val();
+					inputData[num].push(str);
+				}else{
+					let str = $(this).val();
+					inputData[num].push(str);
+				}
 
+			});
+		});
 	</script>
 </body>
 </html>
