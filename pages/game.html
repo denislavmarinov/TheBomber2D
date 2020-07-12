@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TheBomber 2D</title>
+	<!-- Bootstrap 4.5.0 -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<!-- jQuery  3.5.1 -->
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<!-- jQuery UI 1.12.1 -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+	<!-- Bootstrap JavaScript -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	<!-- JavaScript Bundle -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
+	<!-- Font Awesome 5 -->
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<!-- My JavaScript code -->
+	<script src="../js/js.js"></script>
+	<!-- My CSS code -->
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+	<header>TheBomber2D</header>
+	<section>
+		<p>How do you want to play:</p>
+		<div class="row">
+			<div class="col-4 offset-2">
+				<label for="selection">By selecting</label>
+				<input type="radio" name="inputing" id="selection" value="selection" checked>
+			</div>
+			<div class="col-4 offset-2">
+				<label for="typing">By direct input:</label>
+				<input type="radio" name="inputing" id="typing" value="typing">
+			</div>	
+		</div>
+		<div id="selectionDiv">
+			<button class="btn btn-outline-secondary" id="newRow">Add row</button>
+			<button class="btn btn-outline-dark" id="newField">Add field</button>
+			<div id="selectionContainer" class="container">
+				<p id="inputStart">[</p>
+
+				<p id="inputEnd">]</p>
+			</div>
+			<button class="btn btn-outline-info" id="submitSelecting">Play</button>
+		</div>
+		<div id="typingDiv">
+			<p>World!</p>
+		</div>
+	</section>
+	<script type="text/javascript">
+		$("#typingDiv").hide();
+		let inputTypes = $("input[name=inputing]");
+		$(inputTypes).each(function(ind, el){
+			$(this).on('change', function(e) {
+				let divToShow = $(this).val()+"Div";
+				$("#selectionDiv").hide();
+				$("#typingDiv").hide();
+				$("#"+divToShow).show();
+			});
+		});
+
+		// For inputing using selects
+		let newRow = $("#newRow"), row = 1, col = 1;
+		$(newRow).on("click", addRow);
+		// Add new col html code
+		function newColHtmlCode(col){
+			let htmlToAdd = "";
+			htmlToAdd = "<span>[</span>";
+			htmlToAdd += "<select name='col'"+col+">";
+			htmlToAdd += "<option value='E'>E</option>";
+			htmlToAdd += "<option value='0'>0</option>";
+			htmlToAdd += "<option value='W'>W</option>";
+			htmlToAdd += "</select>";
+			htmlToAdd += "<span>] ,</span>";
+
+			return htmlToAdd;
+		}
+		// Add a row
+		function addRow(){
+			let htmlToAdd = "<p id='row"+row+"'>";
+			for (let i = 1; i <= col; i++) {
+				htmlToAdd += newColHtmlCode(col);
+			}
+			htmlToAdd += "</p>";
+			$("#inputEnd").before(htmlToAdd);
+
+
+			row++;
+		}
+
+		let addCol = $("#newField");
+		// Add a col
+		$(addCol).on("click", function(){
+			// Check if there are no rows
+			if ($("#selectionContainer").children("p").length < 3) {
+				addRow();
+			}else{
+				// If in the code have some rows add to all of them 1 more column
+				let allRows = $("#selectionDiv p").not(":first").not(":last");
+				$(allRows).each(function() {
+					let htmlToAdd = newColHtmlCode(col);
+					$(this).append(htmlToAdd);
+				});
+			}
+		});
+
+	</script>
+</body>
+</html>
