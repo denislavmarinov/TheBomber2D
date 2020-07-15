@@ -274,7 +274,7 @@ function checkIfInputSubArrLengthIsNotEqual(arr){
 function checkIfTheInputIsCorrect(arr){
 	for (let im = 0; im < arr.length; im++) {
 		for (var ip = 0; ip < arr[im].length; ip++) {
-			if (arr[im][ip] != "E" && arr[im][ip] != "0" && arr[im][ip] != "W") {
+			if (arr[im][ip] != String.fromCharCode(69) && arr[im][ip] != String.fromCharCode(48) && arr[im][ip] != String.fromCharCode(87)) {
 				return false;
 			}
 		}
@@ -282,4 +282,4 @@ function checkIfTheInputIsCorrect(arr){
 	return true;
 }
 
-console.log(checkIfTheInputIsCorrect(input));
+// console.log(checkIfTheInputIsCorrect(input));

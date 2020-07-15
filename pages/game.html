@@ -44,7 +44,8 @@
 			<button class="btn btn-outline-info" id="submitSelecting">Play</button>
 		</div>
 		<div id="typingDiv">
-			<p>World!</p>
+			<textarea id="inputData" name="inputData" rows="20" cols="80"></textarea>
+			<button class="btn btn-outline-info" id="submitTyping">Play</button>
 		</div>
 	</section>
 	<script type="text/javascript">
@@ -105,12 +106,12 @@
 			}
 		});
 		// Submit the selecting form
-		let btnSubmit = $("#submitSelecting"), inputData = [];
+		let btnSubmit = $("#submitSelecting");
 		$(btnSubmit).on("click", function(){
-			let num = 0;
+			let num = 0, inputData = [];
 			inputData[0] = [];
 			$("select").each(function(ind, el){
-				if ((ind)/col == 1) {
+				if ((ind)%col == 0 && ind !=0) {
 					// New line
 					num++;
 					inputData[num] = [];
@@ -128,8 +129,8 @@
 		function checkInputForErrors(inputData){
 			if (checkIfInputSubArrLengthIsNotEqual(inputData)) {
 				if (checkIfTheInputIsCorrect(inputData)) {
-					// Send the data to the result page	
-					
+					// Save the data in localStorage
+					localStorage.setItem("inputData", JSON.stringify(inputData));
 				}else{
 					// If there are previous errors remove them	
 					if ($(".alert-danger").length != 0) {
@@ -149,6 +150,14 @@
 				$("#selectionDiv").before(error);
 			}
 		}
+		// Direct typing array option
+		let btnSubmitTyping = $("#submitTyping");
+		$(btnSubmitTyping).on("click", function(){
+			let  inputData = $("#inputData").val(), finalData = [];
+			finalData = JSON.parse(inputData);
+
+			checkInputForErrors(finalData);
+		});
 	</script>
 </body>
 </html>
