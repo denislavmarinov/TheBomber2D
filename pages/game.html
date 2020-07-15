@@ -131,6 +131,10 @@
 				if (checkIfTheInputIsCorrect(inputData)) {
 					// Save the data in localStorage
 					localStorage.setItem("inputData", JSON.stringify(inputData));
+					setTimeout(function () {
+						window.location.href = "game_result.html";
+					}, 100 );
+					
 				}else{
 					// If there are previous errors remove them	
 					if ($(".alert-danger").length != 0) {

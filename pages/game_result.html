@@ -14,8 +14,66 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
 	<!-- Font Awesome 5 -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<!-- My JavaScript code -->
+	<script src="../js/js.js"></script>
+	<!-- My CSS code -->
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-	
+	<header>TheBomber2D</header>
+	<section>
+		<h2>Result:</h2>
+		<p>Maximum number of enemies you can destroy using one bomb: <span class="green"></span></p>
+		<p>You have <span id="ways"></span> to throw the bomb</p>
+	</section>
+	<script type="text/javascript">
+		let inputData = localStorage.getItem("inputData");
+		if (inputData.length > 0) {
+			// localStorage.removeItem("inputData");
+			inputData = JSON.parse(inputData);
+		}
+
+		function playGame(inputData){
+			if (checkIfInputArrIsEmpty(inputData)) {
+				if (checkIfInputSubArrIsEmpty(inputData)) {
+					if (checkIfInputDoesNotContain0(inputData)) {
+						if (checkIfInputDoesNotContainEnemies(inputData)) {
+							return game(inputData);
+						}else{
+							return 0;
+						}
+					}else{
+						return 0;
+					}
+				}else{
+					return 0;
+				}
+			}else{
+				return 0;
+			}
+		}
+		let result = playGame(inputData);
+		
+		if (result) {
+			
+		}else{
+			// If result is equal to 0 display it
+			$(".green").text(result);
+			$("p:last").remove();
+			let divContent = "";
+			divContent = "<div class='result'>";
+			divContent += "<table class='table table-striped' border='1'>";
+			for (let i = 0; i < inputData.length; i++) {
+				divContent += "<tr>";
+				for (let j = 0; j < inputData[i].length; j++) {
+					divContent += "<td>" + inputData[i][j] + "</td>";
+				}
+				divContent += "</tr>";
+			}
+			divContent += "</table>";
+			divContent += "</div>";
+			$("p:last").after(divContent);
+		}
+	</script>
 </body>
 </html>
