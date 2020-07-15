@@ -15,4 +15,18 @@ span{
 }
 td{
 	width: 50px;
+	text-align: center;
+}
+#ways{
+	margin-left: 0px;
+	margin-right: 0px;
+	color: #0f0;
+}
+.blueTd{
+	background-color: #00f; 
+	color: #fff;
+}
+.redTd{
+	background-color: #f00; 
+	color: #fff;
 }

@@ -24,7 +24,7 @@
 	<section>
 		<h2>Result:</h2>
 		<p>Maximum number of enemies you can destroy using one bomb: <span class="green"></span></p>
-		<p>You have <span id="ways"></span> to throw the bomb</p>
+		<p>You have <span id="ways"></span> ways to throw the bomb</p>
 	</section>
 	<script type="text/javascript">
 		let inputData = localStorage.getItem("inputData");
@@ -55,7 +55,37 @@
 		let result = playGame(inputData);
 		
 		if (result) {
-			
+			$(".green").text(result[0].value);
+			$("#ways").text(result.length)
+			console.log(result);
+			let strToAppend = "";
+			for (ind in result) {
+				strToAppend += "<hr><div class='way"+ind+"'>";
+				strToAppend += "<p>You will hit " +result[0].value+ " enemies </p>";
+				strToAppend += "<p>You may drop the bomb on the <span style='color:#00f'>blue</span> and will hit the enemies in <span style='color:#f00'>red</span></p>";
+				strToAppend += "<table class='table table-striped' border='1'>";
+				for (let i = 0; i < inputData.length; i++) {
+					strToAppend += "<tr>";
+					for (let j = 0; j < inputData[i].length; j++) {
+						if (i == result[ind].rowToDrop && j == result[ind].colToDrop) {
+							// If the coordinates match the place where the bomb should be place is colored in blue
+							strToAppend += "<td class='blueTd'>" + inputData[i][j] + "</td>";
+						}else if (i == result[ind].rowToDrop && j != result[ind].colToDrop) {
+							// Color the row
+							strToAppend += "<td class='redTd'>" + inputData[i][j] + "</td>";
+						}else if (i != result[ind].rowToDrop && j == result[ind].colToDrop) {
+							// Color the col 
+							strToAppend += "<td class='redTd'>" + inputData[i][j] + "</td>";
+						}else{
+							strToAppend += "<td>" + inputData[i][j] + "</td>";
+						}
+					}
+					strToAppend += "</tr>";
+				}
+				strToAppend += "</table>";
+				strToAppend += "</div>";
+			}
+			$("p:last").after(strToAppend);
 		}else{
 			// If result is equal to 0 display it
 			$(".green").text(result);
