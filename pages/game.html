@@ -36,6 +36,8 @@
 		<div id="selectionDiv">
 			<button class="btn btn-outline-secondary" id="newRow">Add row</button>
 			<button class="btn btn-outline-dark" id="newField">Add field</button>
+			<button class="btn btn-outline-danger" id="deleteRow">Delete row</button>
+			<button class="btn btn-outline-danger" id="deleteField">Delete field</button>
 			<div id="selectionContainer" class="container">
 				<p id="inputStart">[</p>
 
@@ -61,50 +63,85 @@
 		});
 
 		// For inputing using selects
-		let newRow = $("#newRow"), row = 1, col = 1;
+		let newRow = $("#newRow"), row = 0, col = 1;
 		$(newRow).on("click", addRow);
 		// Add new col html code
 		function newColHtmlCode(col){
 			let htmlToAdd = "";
-			htmlToAdd = "<span>[</span>";
-			htmlToAdd += "<select name='col'"+col+">";
+			htmlToAdd = "<div class='inputCol col"+col+"'>"
+			htmlToAdd += "<span>[</span>";
+			htmlToAdd += "<select name='col"+col+"'>";
 			htmlToAdd += "<option value='E'>E</option>";
 			htmlToAdd += "<option value='0'>0</option>";
 			htmlToAdd += "<option value='W'>W</option>";
 			htmlToAdd += "</select>";
 			htmlToAdd += "<span>] ,</span>";
+			htmlToAdd += "</div>";
 
 			return htmlToAdd;
 		}
 		// Add a row
 		function addRow(){
-			let htmlToAdd = "<p id='row"+row+"'>";
-			for (let i = 1; i <= col; i++) {
-				htmlToAdd += newColHtmlCode(col);
-			}
-			htmlToAdd += "</p>";
-			$("#inputEnd").before(htmlToAdd);
-
-
 			row++;
+			let htmlToAdd = "<div class='inputRow' id='row"+row+"'>";
+			for (let i = 1; i <= col; i++) {
+				htmlToAdd += newColHtmlCode(i);
+			}
+			htmlToAdd += "</div><p class='rowP"+row+"'></p>";
+			$("#inputEnd").before(htmlToAdd);
 		}
 
 		let addCol = $("#newField");
 		// Add a col
 		$(addCol).on("click", function(){
 			// Check if there are no rows
-			if ($("#selectionContainer").children("p").length < 3) {
+			if ($("#selectionContainer").children("div").length <= 0) {
 				addRow();
 			}else{
+				let inputRow = $(".inputRow");
 				// If in the code have some rows add to all of them 1 more column
-				let allRows = $("#selectionDiv p").not(":first").not(":last");
-				$(allRows).each(function() {
-					let htmlToAdd = newColHtmlCode(col);
+				$(inputRow).each(function(ind) {
+					let htmlToAdd = newColHtmlCode(col+1);
 					$(this).append(htmlToAdd);
 				});
 				col++;
 			}
 		});
+		// Delete a row
+		let deleteRow = $("#deleteRow");
+		$(deleteRow).on('click', function() {
+			// Select all rows
+			if (row > 0) {
+				let id = "#row"+row, classRowP = ".rowP"+row;
+				$(id).remove();
+				$(classRowP).remove();
+				row--;
+			}else{
+				alert("There are no rows to be deleted!");
+			}
+		});
+		// Delete a col
+		let deleteCol = $("#deleteField");
+		$(deleteCol).on("click", function () {
+			if (col > 1) {
+				let classCol = ".col"+col;
+
+				$("#selectionContainer").find(classCol).remove();			
+				col--;
+			}else if(col === 1){
+				
+				$(".inputRow").each(function(ind) {
+					$(this).remove();
+					let classRowP = ".rowP"+(ind+1);
+					$(classRowP).remove();
+					row--;
+				});
+				col--;
+			}else{
+				alert("There are no cols to be deleted!");
+			}
+			
+		})
 		// Submit the selecting form
 		let btnSubmit = $("#submitSelecting");
 		$(btnSubmit).on("click", function(){
