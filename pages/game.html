@@ -21,6 +21,17 @@
 </head>
 <body>
 	<header>TheBomber2D</header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+    	<a class="navbar-brand" href="../index.html"><i class="fas fa-home"></i></a> 
+    	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    	        <span class="navbar-toggler-icon"></span>
+    	</button>
+    	<div class="collapse navbar-collapse" id="navbarNav">
+    	    <ul class="navbar-nav"> 
+    	        <li class="nav-item"> <a class="nav-link" href="game.html">Play game</a></li>
+            </ul>
+        </div>
+    </nav>
 	<section>
 		<p>How do you want to play:</p>
 		<div class="row">
@@ -129,7 +140,6 @@
 				$("#selectionContainer").find(classCol).remove();			
 				col--;
 			}else if(col === 1){
-				
 				$(".inputRow").each(function(ind) {
 					$(this).remove();
 					let classRowP = ".rowP"+(ind+1);
