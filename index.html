@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>TheBomber 2D</title>
+    <title>TheBomber 2D</title>
     <!-- Bootstrap 4.5.0 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!-- jQuery  3.5.1 -->
@@ -33,7 +33,83 @@
         </div>
     </nav>
     <section>
-        
+        <div id="rules">
+            <h2>Rules:</h2>
+            <p>Each cell in a 2D grid contains either a wall ('W') or an enemy ('E'), or is empty ('0'). Bombs can destroy enemies, but walls are too strong to be destroyed. A bomb placed in an empty cell destroys all enemies in the same row and column, but the destruction stops once it hits a wall.</p>
+        </div>
+        <div id="example">
+            <h2>Example:</h2>
+            <h4>Input:</h4>
+            <p>[["0", "0", "E", "0"],</p>
+            <p>["W", "0", "W", "E"],</p>
+            <p>["0", "E", "0", "W"],</p>
+            <p>["0", "W", "0", "E"]]</p>
+            <h4>Output:</h4>
+            <p>Maximum number of enemies you can destroy using one bomb: <span class="green">2</span></p>
+            <p>You have <span id="ways">2</span> ways to throw the bomb and hit max enemies.</p>
+            <div class="row">
+                <div class="col-8">
+                    <table class="table table-striped" border="1">
+                        <tbody>
+                            <tr>
+                                <td class="redTd">0</td>
+                                <td class="blueTd">0</td>
+                                <td class="redTd">E</td>
+                                <td class="redTd">0</td>
+                            </tr>
+                            <tr>
+                                <td>W</td>
+                                <td class="redTd">0</td>
+                                <td>W</td>
+                                <td>E</td>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td class="redTd">E</td>
+                                <td>0</td>
+                                <td>W</td>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td class="redTd">W</td>
+                                <td>0</td>
+                                <td>E</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4">
+                    <table class="table table-striped" border="1">
+                        <tbody>
+                            <tr>
+                                <td class="redTd">0</td>
+                                <td class="redTd">0</td>
+                                <td class="redTd">E</td>
+                                <td class="blueTd">0</td>
+                            </tr>
+                            <tr>
+                                <td>W</td>
+                                <td>0</td>
+                                <td>W</td>
+                                <td class="redTd">E</td>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td>E</td>
+                                <td>0</td>
+                                <td class="redTd">W</td>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td>W</td>
+                                <td>0</td>
+                                <td class="redTd">E</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </section>
 </body>
 </html>

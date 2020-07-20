@@ -71,7 +71,7 @@
 			let strToAppend = "";
 			for (ind in result) {
 				let flag = false;
-				strToAppend += "<hr><div class='way"+ind+"'>";
+				strToAppend += "<hr><div class='way"+(+ind+1)+"'>";
 				strToAppend += "<p>You will hit " +result[0].value+ " enemies </p>";
 				strToAppend += "<p>You may drop the bomb on the <span style='color:#00f'>blue</span> and will hit the enemies in <span style='color:#f00'>red</span></p>";
 				strToAppend += "<table class='table table-striped' border='1'>";
