@@ -95,8 +95,29 @@
 		function addRow(){
 			row++;
 			let htmlToAdd = "<div class='inputRow' id='row"+row+"'>";
-			for (let i = 1; i <= col; i++) {
-				htmlToAdd += newColHtmlCode(i);
+			if (col == 1) {
+				htmlToAdd += newColHtmlCode(1);
+			}else if (col > 1) {
+				htmlToAdd = "<div class='inputCol col"+col+"'>"
+				htmlToAdd += "<span>[</span>";
+				for (let i = 1; i <= col; i++) {
+					if (i == 1) {
+						htmlToAdd += "<select name='col"+i+"'>";
+						htmlToAdd += "<option value='E'>E</option>";
+						htmlToAdd += "<option value='0'>0</option>";
+						htmlToAdd += "<option value='W'>W</option>";
+						htmlToAdd += "</select>";
+					}else{
+						htmlToAdd += "<span>, </span>";
+						htmlToAdd += "<select name='col"+i+"'>";
+						htmlToAdd += "<option value='E'>E</option>";
+						htmlToAdd += "<option value='0'>0</option>";
+						htmlToAdd += "<option value='W'>W</option>";
+						htmlToAdd += "</select>";
+					}
+				}
+				htmlToAdd += "<span>] ,</span>";
+				htmlToAdd += "</div>";
 			}
 			htmlToAdd += "</div><p class='rowP"+row+"'></p>";
 			$("#inputEnd").before(htmlToAdd);
@@ -109,11 +130,18 @@
 			if ($("#selectionContainer").children("div").length <= 0) {
 				addRow();
 			}else{
-				let inputRow = $(".inputRow");
+				let inputCol = $(".inputCol");
 				// If in the code have some rows add to all of them 1 more column
-				$(inputRow).each(function(ind) {
-					let htmlToAdd = newColHtmlCode(col+1);
-					$(this).append(htmlToAdd);
+				$(inputCol).each(function(ind) {
+					let htmlToAdd = "<span>, </span>", whereToAdd = $(this).find("select[name='col"+col+"']");
+					// document.querySelector("#row1 > div > select")
+					htmlToAdd += "<select name='col"+(col+1)+"'>";
+					htmlToAdd += "<option value='E'>E</option>";
+					htmlToAdd += "<option value='0'>0</option>";
+					htmlToAdd += "<option value='W'>W</option>";
+					htmlToAdd += "</select>";
+
+					$(whereToAdd).after(htmlToAdd);
 				});
 				col++;
 			}
@@ -127,7 +155,14 @@
 				$(id).remove();
 				$(classRowP).remove();
 				row--;
-			}else{
+			}else if (row == 1) {
+				col = 1;
+				row = 0;
+				let id = "#row"+row, classRowP = ".rowP"+row;
+				$(id).remove();
+				$(classRowP).remove();
+			}
+			else{
 				alert("There are no rows to be deleted!");
 			}
 		});
@@ -135,9 +170,9 @@
 		let deleteCol = $("#deleteField");
 		$(deleteCol).on("click", function () {
 			if (col > 1) {
-				let classCol = ".col"+col;
-
-				$("#selectionContainer").find(classCol).remove();			
+				let lastCol = "select[name='col"+col+"']";
+				$("#selectionContainer").find(lastCol).prev().remove();
+				$("#selectionContainer").find(lastCol).remove();
 				col--;
 			}else if(col === 1){
 				$(".inputRow").each(function(ind) {
@@ -146,7 +181,6 @@
 					$(classRowP).remove();
 					row--;
 				});
-				col--;
 			}else{
 				alert("There are no cols to be deleted!");
 			}
