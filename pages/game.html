@@ -20,7 +20,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-	<header>TheBomber2D</header>
+	<header><h1 class="text-center">TheBomber2D</h1></header>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light"> 
     	<a class="navbar-brand" href="../index.html"><i class="fas fa-home"></i></a> 
     	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -235,13 +235,71 @@
 				$("#selectionDiv").before(error);
 			}
 		}
+		// Check for correct brackts in direct input
+		function correctBrackets(inputData) {
+			let splittedData = inputData.split("");
+
+			for(ic in splittedData){
+				if (splittedData[ic] != "[" && splittedData[ic] != "]" && splittedData[ic] != "\'" && splittedData[ic] != "\"" &&  splittedData[ic] != "E" && splittedData[ic] != "0" && splittedData[ic] != "W" && splittedData[ic] != "\," && splittedData[ic] != " " && !splittedData[ic].match(/\n+/)) {
+					return ic;
+				}
+			}
+			return true;
+		}
+		// Check for open/close brackets
+		function openCloseBrackets(inputData){
+			let splittedData = inputData.split(""), openBracket = 0, closeBracket = 0; 
+
+			for(ia in splittedData){
+				if (splittedData[ia] == "[") {
+					openBracket += 1;
+				}
+				if (splittedData[ia] == "]") {
+					closeBracket += 1;
+				}
+			}
+			if (openBracket == closeBracket) {
+				return true;
+			}else{
+				return false;
+			}
+		}
 		// Direct typing array option
 		let btnSubmitTyping = $("#submitTyping");
 		$(btnSubmitTyping).on("click", function(){
-			let  inputData = $("#inputData").val(), finalData = [];
-			finalData = JSON.parse(inputData);
+			let  inputData = $("#inputData").val(), finalData = [], correctInputData;
+			if (correctBrackets(inputData) != true || !openCloseBrackets(inputData)) {
+				$(".alert-danger").remove();
+				if (!openCloseBrackets(inputData)) {
+					let newError = "<p class='alert-danger'>Brackets are not correctly placed!!!</p>";
+					$("#inputData").before(newError);
+				}
+				if (correctBrackets(inputData) != true) {
+					let splittedData = inputData.split(""), charNum = correctBrackets(inputData), newElement = "<p class='alert-danger'>This charcter <span class='font-weight-bold text-muted h4'>"+splittedData[charNum]+"</span> is not allowed!!!</p>";
+					$("#inputData").before(newElement);
+				}
+				// If the function return false
+				alert("Inputted data is not correct!");
+			}else{
+				correctInputData = inputData.toUpperCase();
+				function isJSONString(correctInputData){
+					try {
+				        JSON.parse(correctInputData);
+				    } catch (e) {
+				        let newError = "<p class='alert-danger'>Input is not correct!!!</p>";
+						$("#inputData").before(newError);
+						return false;
+				    }
+				    return true;
+				}
+				console.log(isJSONString(correctInputData));
+				if (isJSONString(correctInputData)) {
+					finalData = JSON.parse(correctInputData);
 
-			checkInputForErrors(finalData);
+					// Add a check for correct brackets
+					checkInputForErrors(finalData);
+				}
+			}
 		});
 	</script>
 </body>

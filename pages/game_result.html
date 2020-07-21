@@ -20,7 +20,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-	<header>TheBomber2D</header>
+	<header><h1 class="text-center">TheBomber2D</h1></header>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	    <a class="navbar-brand" href="../index.html"><i class="fas fa-home"></i></a>
 	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,36 +76,26 @@
 				strToAppend += "<p>You may drop the bomb on the <span style='color:#00f'>blue</span> and will hit the enemies in <span style='color:#f00'>red</span></p>";
 				strToAppend += "<table class='table table-striped' border='1'>";
 				for (let i = 0; i < inputData.length; i++) {
-					// for each row make the flag to it dedfaul value
-					flag = false;
 					strToAppend += "<tr>";
 					for (let j = 0; j < inputData[i].length; j++) {
 						if (i == result[ind].rowToDrop && j == result[ind].colToDrop) {
 							// If the coordinates match the place where the bomb should be place is colored in blue
 							strToAppend += "<td class='blueTd'>" + inputData[i][j] + "</td>";
-						}else if (i == result[ind].rowToDrop && j != result[ind].colToDrop) {
-							// Check if W is found
-							if (flag == true) {
-								strToAppend += "<td>" + inputData[i][j] + "</td>";
-							}else{
+						}else if (i == result[ind].rowToDrop && j != result[ind].colToDrop && flag != true) {
 								// Color the row
 								strToAppend += "<td class='redTd'>" + inputData[i][j] + "</td>";
-							}
 
 							if (inputData[i][j] == "W") {
 								flag = true;
 							}
-						}else if (i != result[ind].rowToDrop && j == result[ind].colToDrop) {
-							if (flag == true) {
-								strToAppend += "<td>" + inputData[i][j] + "</td>";
-							}else{
-								// Color the col 
-								strToAppend += "<td class='redTd'>" + inputData[i][j] + "</td>";
-							}
+						}else if (i != result[ind].rowToDrop && j == result[ind].colToDrop && flag != true) {
+							strToAppend += "<td class='redTd'>" + inputData[i][j] + "</td>";
 
 							if (inputData[i][j] == "W") {
 								flag = true;
 							}
+						}else if (flag == true) {
+							strToAppend += "<td>" + inputData[i][j] + "</td>";
 						}else{
 							strToAppend += "<td>" + inputData[i][j] + "</td>";
 						}
