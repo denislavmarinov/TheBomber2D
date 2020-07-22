@@ -63,49 +63,109 @@
 				return 0;
 			}
 		}
-		let result = playGame(inputData);
-		
+		let result = playGame(inputData), strToAppend = "";;
+		console.log(result);
 		if (result) {
 			$(".green").text(result[0].value);
 			$("#ways").text(result.length);
-			let strToAppend = "";
 			for (ind in result) {
-				let flag = false;
+				strToAppend = "";
 				strToAppend += "<hr><div class='way"+(+ind+1)+"'>";
 				strToAppend += "<p>You will hit " +result[0].value+ " enemies </p>";
 				strToAppend += "<p>You may drop the bomb on the <span style='color:#00f'>blue</span> and will hit the enemies in <span style='color:#f00'>red</span></p>";
 				strToAppend += "<table class='table table-striped' border='1'>";
+				let targets = {}, x = result[ind].rowToDrop, y = result[ind].colToDrop;
+				targets.row = [];
+				targets.col = [];
+
+				for (let k = 0; k < inputData[0].length; k++) {
+					// Check if y is equal to the end of the row and make it 0 (zero)
+					if (y == (inputData[0].length)) {
+						break;
+					}
+					if (inputData[x][y] == "W") {
+						break;
+					} else {
+						targets.row.push(x);
+						targets.col.push(y);
+					}
+					y++;
+				}
+
+				// Set the value again so not to be changed after the previous activities with them
+				x = result[ind].rowToDrop, y = result[ind].colToDrop;
+
+				// Searching for enemy in a cols (form top to down) => y is not changing
+				for (let l = 0; l < inputData.length; l++) {
+					// Check if x is equal to the end of the col and make it 0 (zero)
+					if (x == (inputData.length)) {
+						break;
+					}
+					if (inputData[x][y] == "W") {
+						break;
+					} else {
+						targets.row.push(x);
+						targets.col.push(y);
+					}
+					x++;
+				}
+				// Set the value again so not to be changed after the previous activities with them
+				x = result[ind].rowToDrop, y = result[ind].colToDrop;
+
+				// Search for rnrmy in a row (form rigth to left) => x is not changing
+				for (let m = 0; m < inputData[0].length; m++) {
+					// Check if y is equal to the end of the row and make it 0 (zero)
+					if (y == -1) {
+						break;
+					}
+					if (inputData[x][y] == "W") {
+						break;
+					} else {
+						targets.row.push(x);
+						targets.col.push(y);
+					}
+					y--;
+				}
+
+				// Set the value again so not to be changed after the previous activities with them
+				x = result[ind].rowToDrop, y = result[ind].colToDrop;
+				
+				// Searching for enemy in a cols (form down to top) => y is not changing
+				for (let h = 0; h < inputData.length; h++) {
+					// Check if x is equal to the end of the col and make it 0 (zero)
+					if (x == -1) {
+						break;
+					}
+					if (inputData[x][y] == "W") {
+						break;
+					} else {
+						targets.row.push(x);
+						targets.col.push(y);
+					}
+					x--;
+				}
+				console.log(targets);
 				for (let i = 0; i < inputData.length; i++) {
 					strToAppend += "<tr>";
 					for (let j = 0; j < inputData[i].length; j++) {
-						if (i == result[ind].rowToDrop && j == result[ind].colToDrop) {
-							// If the coordinates match the place where the bomb should be place is colored in blue
-							strToAppend += "<td class='blueTd'>" + inputData[i][j] + "</td>";
-						}else if (i == result[ind].rowToDrop && j != result[ind].colToDrop && flag != true) {
-								// Color the row
-								strToAppend += "<td class='redTd'>" + inputData[i][j] + "</td>";
-
-							if (inputData[i][j] == "W") {
-								flag = true;
-							}
-						}else if (i != result[ind].rowToDrop && j == result[ind].colToDrop && flag != true) {
-							strToAppend += "<td class='redTd'>" + inputData[i][j] + "</td>";
-
-							if (inputData[i][j] == "W") {
-								flag = true;
-							}
-						}else if (flag == true) {
-							strToAppend += "<td>" + inputData[i][j] + "</td>";
-						}else{
-							strToAppend += "<td>" + inputData[i][j] + "</td>";
-						}
+						strToAppend += "<td>" + inputData[i][j] + "</td>";
 					}
 					strToAppend += "</tr>";
 				}
 				strToAppend += "</table>";
 				strToAppend += "</div>";
+				$("section").append(strToAppend);
+				for (index in targets.row) {
+					console.log(index);
+					let tr = ".way"+(+ind+1)+" table tr:nth-of-type("+(+targets.row[index]+1)+")", td = "td:nth-of-type("+(+targets.col[index]+1)+")";
+					console.log($(tr).children(td), tr, td);
+					if (result[ind].rowToDrop == targets.row[index] && result[ind].colToDrop == targets.col[index]) {
+						$(tr).children(td).attr("class", "blueTd");
+					}else{
+						$(tr).children(td).attr("class", "redTd");
+					}
+				}
 			}
-			$("p:last").after(strToAppend);
 		}else{
 			// If result is equal to 0 display it
 			$(".green").text(result);
