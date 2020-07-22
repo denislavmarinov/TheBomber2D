@@ -68,7 +68,7 @@
 		if (result) {
 			$(".green").text(result[0].value);
 			$("#ways").text(result.length);
-			for (ind in result) {
+			for (let ind in result) {
 				strToAppend = "";
 				strToAppend += "<hr><div class='way"+(+ind+1)+"'>";
 				strToAppend += "<p>You will hit " +result[0].value+ " enemies </p>";
@@ -155,7 +155,7 @@
 				strToAppend += "</table>";
 				strToAppend += "</div>";
 				$("section").append(strToAppend);
-				for (index in targets.row) {
+				for (let index in targets.row) {
 					console.log(index);
 					let tr = ".way"+(+ind+1)+" table tr:nth-of-type("+(+targets.row[index]+1)+")", td = "td:nth-of-type("+(+targets.col[index]+1)+")";
 					console.log($(tr).children(td), tr, td);

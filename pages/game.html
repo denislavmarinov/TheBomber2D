@@ -239,8 +239,8 @@
 		function correctBrackets(inputData) {
 			let splittedData = inputData.split("");
 
-			for(ic in splittedData){
-				if (splittedData[ic] != "[" && splittedData[ic] != "]" && splittedData[ic] != "\'" && splittedData[ic] != "\"" &&  splittedData[ic] != "E" && splittedData[ic] != "0" && splittedData[ic] != "W" && splittedData[ic] != "\," && splittedData[ic] != " " && !splittedData[ic].match(/\n+/)) {
+			for(let ic in splittedData){
+				if (splittedData[ic] != "[" && splittedData[ic] != "]" && splittedData[ic] != "\'" && splittedData[ic] != "\"" &&  splittedData[ic] != "E" && splittedData[ic] != "0" && splittedData[ic] != "W" && splittedData[ic] != "\," && splittedData[ic] != " " && !splittedData[ic].match(/\n+/) && splittedData[ic] != String.fromCharCode(9)) {
 					return ic;
 				}
 			}
@@ -250,7 +250,7 @@
 		function openCloseBrackets(inputData){
 			let splittedData = inputData.split(""), openBracket = 0, closeBracket = 0; 
 
-			for(ia in splittedData){
+			for(let ia in splittedData){
 				if (splittedData[ia] == "[") {
 					openBracket += 1;
 				}

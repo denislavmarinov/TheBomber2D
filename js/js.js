@@ -1,5 +1,20 @@
+function bombPlaceCasesCheck (arr, x, y, loopEnd, ifArg1, ifArg2, varToChange) {
+
+	for (let k = 0; k < loopEnd; k++) {
+		if (ifArg1 == (ifArg2)) {
+			break;
+		}
+		if (arr[x][y] == "W") {
+			break;
+		} else if (arr[x][y] == "E") {
+			targets[num].targetsCount += 1;
+		}
+		varToChange;
+	}
+}
 function game(arr){
-	let num = 0, targets = [], bombThrowPlaces = []; 
+	var num = 0, targets = [];
+	let bombThrowPlaces = []; 
 	// Find the empty ( 0 ) spaces in the input
 	for (let i = 0; i < arr.length; i++) {
 		for (let j = 0; j < arr[i].length; j++) {
@@ -17,68 +32,74 @@ function game(arr){
 
 		targets[num] = {targetsCount: 0};
 		// Search for rnrmy in a row (form let to rigth) => x is not changing
-		for (let k = 0; k < arr[0].length; k++) {
-			// Check if y is equal to the end of the row and make it 0 (zero)
-			if (y == (arr[0].length)) {
-				break;
-			}
-			if (arr[x][y] == "W") {
-				break;
-			} else if (arr[x][y] == "E") {
-				targets[num].targetsCount += 1;
-			}
-			y++;
-		}
+		bombPlaceCasesCheck(arr, x, y, arr[0].length, y, arr[0].length, y++);
+
+
+		// for (let k = 0; k < arr[0].length; k++) {
+		// 	// Check if y is equal to the end of the row and make it 0 (zero)
+		// 	if (y == (arr[0].length)) {
+		// 		break;
+		// 	}
+		// 	if (arr[x][y] == "W") {
+		// 		break;
+		// 	} else if (arr[x][y] == "E") {
+		// 		targets[num].targetsCount += 1;
+		// 	}
+		// 	y++;
+		// }
 
 		// Set the value again so not to be changed after the previous activities with them
 		x = bombThrowPlaces[ind].row, y = bombThrowPlaces[ind].col;
 
-		// Searching for enemy in a cols (form top to down) => y is not changing
-		for (let l = 0; l < arr.length; l++) {
-			// Check if x is equal to the end of the col and make it 0 (zero)
-			if (x == (arr.length)) {
-				break;
-			}
-			if (arr[x][y] == "W") {
-				break;
-			} else if (arr[x][y] == "E") {
-				targets[num].targetsCount += 1;
-			}
-			x++;
-		}
+		// Searching for enemy in a cols (form top to down) => y is not changing.
+		bombPlaceCasesCheck(arr, x, y, arr.length, x, arr.length, x++);
+		// for (let l = 0; l < arr.length; l++) {
+		// 	// Check if x is equal to the end of the col and make it 0 (zero)
+		// 	if (x == (arr.length)) {
+		// 		break;
+		// 	}
+		// 	if (arr[x][y] == "W") {
+		// 		break;
+		// 	} else if (arr[x][y] == "E") {
+		// 		targets[num].targetsCount += 1;
+		// 	}
+		// 	x++;
+		// }
 		// Set the value again so not to be changed after the previous activities with them
 		x = bombThrowPlaces[ind].row, y = bombThrowPlaces[ind].col;
 
 		// Search for rnrmy in a row (form rigth to left) => x is not changing
-		for (let m = 0; m < arr[0].length; m++) {
-			// Check if y is equal to the end of the row and make it 0 (zero)
-			if (y == -1) {
-				break;
-			}
-			if (arr[x][y] == "W") {
-				break;
-			} else if (arr[x][y] == "E") {
-				targets[num].targetsCount += 1;
-			}
-			y--;
-		}
+		bombPlaceCasesCheck(arr, x, y, arr[0].length, y, -1, y--);
+		// for (let m = 0; m < arr[0].length; m++) {
+		// 	// Check if y is equal to the end of the row and make it 0 (zero)
+		// 	if (y == -1) {
+		// 		break;
+		// 	}
+		// 	if (arr[x][y] == "W") {
+		// 		break;
+		// 	} else if (arr[x][y] == "E") {
+		// 		targets[num].targetsCount += 1;
+		// 	}
+		// 	y--;
+		// }
 
 		// Set the value again so not to be changed after the previous activities with them
 		x = bombThrowPlaces[ind].row, y = bombThrowPlaces[ind].col;
 		
 		// Searching for enemy in a cols (form down to top) => y is not changing
-		for (let h = 0; h < arr.length; h++) {
-			// Check if x is equal to the end of the col and make it 0 (zero)
-			if (x == -1) {
-				break;
-			}
-			if (arr[x][y] == "W") {
-				break;
-			} else if (arr[x][y] == "E") {
-				targets[num].targetsCount += 1;
-			}
-			x--;
-		}
+		bombPlaceCasesCheck(arr, x, y, arr.length, x,  -1, x--);
+		// for (let h = 0; h < arr.length; h++) {
+		// 	// Check if x is equal to the end of the col and make it 0 (zero)
+		// 	if (x == -1) {
+		// 		break;
+		// 	}
+		// 	if (arr[x][y] == "W") {
+		// 		break;
+		// 	} else if (arr[x][y] == "E") {
+		// 		targets[num].targetsCount += 1;
+		// 	}
+		// 	x--;
+		// }
 
 		num++;
 	}
