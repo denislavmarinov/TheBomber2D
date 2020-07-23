@@ -265,14 +265,14 @@
 		let btnSubmitTyping = $("#submitTyping");
 		$(btnSubmitTyping).on("click", function(){
 			let  inputData = $("#inputData").val(), finalData = [], correctInputData;
-			if (correctBrackets(inputData) != true || !openCloseBrackets(inputData)) {
+			if (correctBrackets(inputData.toUpperCase()) != true || !openCloseBrackets(inputData)) {
 				$(".alert-danger").remove();
 				if (!openCloseBrackets(inputData)) {
 					let newError = "<p class='alert-danger'>Brackets are not correctly placed!!!</p>";
 					$("#inputData").before(newError);
 				}
 				if (correctBrackets(inputData) != true) {
-					let splittedData = inputData.split(""), charNum = correctBrackets(inputData), newElement = "<p class='alert-danger'>This charcter <span class='font-weight-bold text-muted h4'>"+splittedData[charNum]+"</span> is not allowed!!!</p>";
+					let splittedData = inputData.split(""), charNum = correctBrackets(inputData), newElement = "<p class='alert-danger'>This charcter <span class='font-weight-bold text-muted h4'>"+splittedData[charNum]+"</span> is not allowed!!! Use only E, W, 0</p>";
 					$("#inputData").before(newElement);
 				}
 				// If the function return false
