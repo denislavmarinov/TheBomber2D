@@ -38,12 +38,51 @@
 		<p>You have <span id="ways"></span> ways to throw the bomb and hit max enemies.</p>
 	</section>
 	<script type="text/javascript">
+		if (localStorage.getItem("inputData") == null) {
+			window.location.href = "game.html";
+		}
 		let inputData = localStorage.getItem("inputData");
 		if (inputData.length > 0) {
 			localStorage.removeItem("inputData");
 			inputData = JSON.parse(inputData);
 		}
+		
+		function whereToColor(inputData, x, y, targets, loopEnd, ifArg1, ifArg2, varToChange){
+			let rowNum = x,
+				colNum = y, ifArg1New;
 
+			for (let k = 0; k < loopEnd; k++) {
+				if (ifArg1 == "x") {
+					ifArg1New = rowNum;
+				}else if (ifArg1 == "y"){
+					ifArg1New == colNum;
+				} 
+				if ((+ifArg1New) == (+ifArg2)) {
+					break;
+				}
+				if (inputData[rowNum][colNum] == "W") {
+					break;
+				} else {
+					targets.row.push(rowNum);
+					targets.col.push(colNum);
+				}
+				switch(varToChange) {
+					case 0:
+		                colNum++;
+		                break;
+		            case 1:
+		                rowNum++;
+		                break;
+		            case 2:
+		                colNum--;
+		                break;
+		            case 3:
+		                rowNum--;
+		                break;
+				}
+			}
+			return targets;
+		}
 		function playGame(inputData){
 			if (checkIfInputArrIsEmpty(inputData)) {
 				if (checkIfInputSubArrIsEmpty(inputData)) {
@@ -63,8 +102,7 @@
 				return 0;
 			}
 		}
-		let result = playGame(inputData), strToAppend = "";;
-		console.log(result);
+		let result = playGame(inputData), strToAppend = "";
 		if (result) {
 			$(".green").text(result[0].value);
 			$("#ways").text(result.length);
@@ -74,77 +112,22 @@
 				strToAppend += "<p>You will hit " +result[0].value+ " enemies </p>";
 				strToAppend += "<p>You may drop the bomb on the <span style='color:#00f'>blue</span> and will hit the enemies in <span style='color:#f00'>red</span></p>";
 				strToAppend += "<table class='table table-striped' border='1'>";
-				let targets = {}, x = result[ind].rowToDrop, y = result[ind].colToDrop;
+				let targets = {};
 				targets.row = [];
 				targets.col = [];
 
-				for (let k = 0; k < inputData[0].length; k++) {
-					// Check if y is equal to the end of the row and make it 0 (zero)
-					if (y == (inputData[0].length)) {
-						break;
-					}
-					if (inputData[x][y] == "W") {
-						break;
-					} else {
-						targets.row.push(x);
-						targets.col.push(y);
-					}
-					y++;
-				}
-
-				// Set the value again so not to be changed after the previous activities with them
-				x = result[ind].rowToDrop, y = result[ind].colToDrop;
+				// Search for rnrmy in a row (form let to rigth) => x is not changing
+				whereToColor(inputData, result[ind].rowToDrop, result[ind].colToDrop, targets, inputData[0].length, "y", inputData[0].length, 0);
 
 				// Searching for enemy in a cols (form top to down) => y is not changing
-				for (let l = 0; l < inputData.length; l++) {
-					// Check if x is equal to the end of the col and make it 0 (zero)
-					if (x == (inputData.length)) {
-						break;
-					}
-					if (inputData[x][y] == "W") {
-						break;
-					} else {
-						targets.row.push(x);
-						targets.col.push(y);
-					}
-					x++;
-				}
-				// Set the value again so not to be changed after the previous activities with them
-				x = result[ind].rowToDrop, y = result[ind].colToDrop;
+				whereToColor(inputData, result[ind].rowToDrop, result[ind].colToDrop, targets, inputData.length, "x", inputData.length, 1);
 
 				// Search for rnrmy in a row (form rigth to left) => x is not changing
-				for (let m = 0; m < inputData[0].length; m++) {
-					// Check if y is equal to the end of the row and make it 0 (zero)
-					if (y == -1) {
-						break;
-					}
-					if (inputData[x][y] == "W") {
-						break;
-					} else {
-						targets.row.push(x);
-						targets.col.push(y);
-					}
-					y--;
-				}
-
-				// Set the value again so not to be changed after the previous activities with them
-				x = result[ind].rowToDrop, y = result[ind].colToDrop;
+				whereToColor(inputData, result[ind].rowToDrop, result[ind].colToDrop, targets, inputData[0].length, "y", -1, 2);
 				
 				// Searching for enemy in a cols (form down to top) => y is not changing
-				for (let h = 0; h < inputData.length; h++) {
-					// Check if x is equal to the end of the col and make it 0 (zero)
-					if (x == -1) {
-						break;
-					}
-					if (inputData[x][y] == "W") {
-						break;
-					} else {
-						targets.row.push(x);
-						targets.col.push(y);
-					}
-					x--;
-				}
-				console.log(targets);
+				whereToColor(inputData, result[ind].rowToDrop, result[ind].colToDrop, targets, inputData.length, "x", -1, 3);
+
 				for (let i = 0; i < inputData.length; i++) {
 					strToAppend += "<tr>";
 					for (let j = 0; j < inputData[i].length; j++) {
@@ -156,9 +139,7 @@
 				strToAppend += "</div>";
 				$("section").append(strToAppend);
 				for (let index in targets.row) {
-					console.log(index);
 					let tr = ".way"+(+ind+1)+" table tr:nth-of-type("+(+targets.row[index]+1)+")", td = "td:nth-of-type("+(+targets.col[index]+1)+")";
-					console.log($(tr).children(td), tr, td);
 					if (result[ind].rowToDrop == targets.row[index] && result[ind].colToDrop == targets.col[index]) {
 						$(tr).children(td).attr("class", "blueTd");
 					}else{
