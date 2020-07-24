@@ -1,3 +1,27 @@
+body{
+	color: #000;
+	background-color: #FBB664;
+	text-indent: 1.5;
+	font-size: 20px;
+	font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+	margin: 5px;
+}
+table{
+	color: #fff !important;
+	background-color: #f96714;
+}
+header>h1{
+	text-align: center;
+	text-shadow:  #f3e0be 5px 5px;
+	font-size: 45px;
+	color: #3D3D3D;
+}
+nav{
+	background-image: linear-gradient(to bottom left, #f3e0be, #f96714);
+	text-indent: 1.5;
+	font-size: 20px;
+	font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+}
 .row{
 	margin-left: 0px;
 	margin-right: 0px;
@@ -7,7 +31,7 @@ span{
 	margin-right: 1%;
 }
 .green{
-	color: green;
+	color:#009933;
 }
 .table{
 	font-size: 20px;
@@ -20,15 +44,13 @@ td{
 #ways{
 	margin-left: 0px;
 	margin-right: 0px;
-	color: #0f0;
+	color: #009933;
 }
 .blueTd{
-	background-color: #00f; 
-	color: #fff;
+	background-color: #1E90FF;
 }
 .redTd{
-	background-color: #f00; 
-	color: #fff;
+	background-color: #B22222;
 }
 .inputRow>div{
 	display: inline;
