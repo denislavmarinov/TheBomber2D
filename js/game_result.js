@@ -63,6 +63,7 @@ function playGame(inputData){
     }
 }
 let result = playGame(inputData), strToAppend = "";
+// Create the program output
 if (result) {
     $(".green").text(result[0].value);
     $("#ways").text(result.length);

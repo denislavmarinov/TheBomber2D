@@ -70,7 +70,6 @@ $(addCol).on("click", function(){
         // If in the code have some rows add to all of them 1 more column
         $(inputCol).each(function(ind) {
             let htmlToAdd = "<span>, </span>", whereToAdd = $(this).find("select[name='col"+col+"']");
-            // document.querySelector("#row1 > div > select")
             htmlToAdd += "<select name='col"+(col+1)+"'>";
             htmlToAdd += "<option value='E'>E</option>";
             htmlToAdd += "<option value='0'>0</option>";

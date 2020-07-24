@@ -11,8 +11,6 @@ function bombPlaceCasesCheck(arr, x, y, num, targets, loopEnd, ifArg1, ifArg2, v
         if ((+ifArg1New) == (+ifArg2)) {
             break;
         }
-        // console.log(rowNum, colNum);
-        // console.log(arr[rowNum][colNum]);
         if (arr[rowNum][colNum] == "W") {
             break;
         } else if (arr[rowNum][colNum] == "E") {
@@ -96,7 +94,7 @@ function game(arr) {
 
     return mostTargetsDown;
 }
-
+// Function to check if the input is not empty array
 function checkIfInputArrIsEmpty(arr) {
     if (arr.length == 0) {
         return false;
@@ -104,7 +102,7 @@ function checkIfInputArrIsEmpty(arr) {
         return true;
     }
 }
-
+// Function to check if subarray is not empty
 function checkIfInputSubArrIsEmpty(arr) {
     if (arr[0].length == 0) {
         return false;
@@ -112,7 +110,7 @@ function checkIfInputSubArrIsEmpty(arr) {
         return true;
     }
 }
-
+// Function to check if in the input 0 (zero) could not be found 
 function checkIfInputDoesNotContain0(arr) {
     for (let ii = 0; ii < arr.length; ii++) {
         if (arr[ii].includes("0")) {
@@ -121,7 +119,7 @@ function checkIfInputDoesNotContain0(arr) {
     }
     return false;
 }
-
+// Function to check if the input does not contain enemies (E)
 function checkIfInputDoesNotContainEnemies(arr) {
     for (let ij = 0; ij < arr.length; ij++) {
         if (arr[ij].includes("E")) {
@@ -130,7 +128,7 @@ function checkIfInputDoesNotContainEnemies(arr) {
     }
     return false;
 }
-
+// Function to check if the subarray length is different in each row
 function checkIfInputSubArrLengthIsNotEqual(arr) {
     let lengthsOfSubarr = [];
     for (let ik = 0; ik < arr.length; ik++) {
@@ -144,7 +142,7 @@ function checkIfInputSubArrLengthIsNotEqual(arr) {
     }
     return true;
 }
-
+// Check for not allowed characters
 function checkIfTheInputIsCorrect(arr) {
     for (let im = 0; im < arr.length; im++) {
         for (var ip = 0; ip < arr[im].length; ip++) {
